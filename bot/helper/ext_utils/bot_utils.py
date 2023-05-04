@@ -133,19 +133,19 @@ def get_readable_message():
                 globals()['PAGE_NO'] -= 1
         for index, download in enumerate(list(download_dict.values())[COUNT:], start=1):
             msg += f"‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗\n‖\n"
-            msg += f"‖ ‣ <code>{escape(str(download.name()))}</code>\n‖"
-            msg += f"\n‖ ‣ <i>{download.status()}</i>\n‖"
+            msg += f"‖ ‣ <code>{escape(str(download.name()))}</code>"
+            msg += f"\n‖ ‣ <i>{download.status()}</i>"
             if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
-                msg += f"\n‖ ‣ {get_progress_bar_string(download)}\n‖"
-                msg += f"\n‖ ‣ <b>Progress : </b>{download.progress()}\n‖"
-                msg += f"\n‖ ‣ <b>Done : </b>{get_readable_file_size(download.processed_bytes())} of {download.size()}\n‖"
-                msg += f"\n‖ ‣ <b>Speed : </b>{download.speed()}\n‖"
-                msg += f"\n‖ ‣ <b>ETA : </b>{download.eta()}\n‖"
-                msg += f"\n‖ ‣ <b>Elapsed : </b>{get_readable_time(time() - download.message.date.timestamp())}\n‖"
-                msg += f"\n‖ ‣ <b>Engine : </b>{download.eng()}\n‖"
+                msg += f"\n‖ ‣ {get_progress_bar_string(download)}"
+                msg += f"\n‖ ‣ <b>Progress : </b>{download.progress()}"
+                msg += f"\n‖ ‣ <b>Done : </b>{get_readable_file_size(download.processed_bytes())} of {download.size()}"
+                msg += f"\n‖ ‣ <b>Speed : </b>{download.speed()}"
+                msg += f"\n‖ ‣ <b>ETA : </b>{download.eta()}"
+                msg += f"\n‖ ‣ <b>Elapsed : </b>{get_readable_time(time() - download.message.date.timestamp())}"
+                msg += f"\n‖ ‣ <b>Engine : </b>{download.eng()}"
                 if hasattr(download, 'seeders_num'):
                     try:
-                        msg += f"\n‖ ‣ <b>Seeders : </b>{download.seeders_num()} | <b>Leechers:</b> {download.leechers_num()}\n‖"
+                        msg += f"\n‖ ‣ <b>Seeders : </b>{download.seeders_num()} | <b>Leechers:</b> {download.leechers_num()}"
                     except:
                         pass
 
@@ -161,15 +161,15 @@ def get_readable_message():
             if download.message.chat.type != 'private':
                 try:
                     chatid = str(download.message.chat.id)[4:]
-                    msg += f'\n‖ ‣ <b>Source : </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a>\n‖'
-                    msg += f'\n‖ ‣ <b>User Id : </b><code>{download.message.from_user.id}</code>\n‖'
+                    msg += f'\n‖ ‣ <b>Source : </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a>'
+                    msg += f'\n‖ ‣ <b>User Id : </b><code>{download.message.from_user.id}</code>'
                     msg += f"\n‖ ‣ <b>Cancel : </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>\n‖"
                     msg += "‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗\n\n"
                 except:
                     pass
             else:
-                msg += f'\n‖ ‣ <b>User : </b><code>{download.message.from_user.first_name}</code>\n‖'
-                msg += f'\n‖ ‣ <b>User Id : </b><code>{download.message.from_user.id}</code>\n‖'
+                msg += f'\n‖ ‣ <b>User : </b><code>{download.message.from_user.first_name}</code>'
+                msg += f'\n‖ ‣ <b>User Id : </b><code>{download.message.from_user.id}</code>'
                 msg += f"\n‖ ‣ <b>Cancel : </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>\n‖"
                 msg += "‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗‗\n\n"
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
