@@ -132,19 +132,19 @@ def get_readable_message():
                 globals()['COUNT'] -= STATUS_LIMIT
                 globals()['PAGE_NO'] -= 1
         for index, download in enumerate(list(download_dict.values())[COUNT:], start=1):
-            msg += f"<code>{escape(str(download.name()))}</code>"
-            msg += f"\n┌ <i>{download.status()}</i>"
+            msg += f"<code>{escape(str(download.name()))}</code>\n"
+            msg += f"\n<b>┌ <i>{download.status()}</i></b>"
             if download.status() not in [MirrorStatus.STATUS_SPLITTING, MirrorStatus.STATUS_SEEDING]:
-                msg += f"\n├ {get_progress_bar_string(download)}"
-                msg += f"\n├ <b>Progress : </b>{download.progress()}"
-                msg += f"\n├ <b>Done : </b>{get_readable_file_size(download.processed_bytes())} of {download.size()}"
-                msg += f"\n├ <b>Speed : </b>{download.speed()}"
-                msg += f"\n├ <b>ETA : </b>{download.eta()}"
-                msg += f"\n├ <b>Elapsed : </b>{get_readable_time(time() - download.message.date.timestamp())}"
-                msg += f"\n├ <b>Engine : </b>{download.eng()}"
+                msg += f"\n<b>├ {get_progress_bar_string(download)}</b>"
+                msg += f"\n<b>├ Progress : </b>{download.progress()}"
+                msg += f"\n<b>├ Done : </b>{get_readable_file_size(download.processed_bytes())} of {download.size()}"
+                msg += f"\n<b>├ Speed : </b>{download.speed()}"
+                msg += f"\n<b>├ ETA : </b>{download.eta()}"
+                msg += f"\n<b>├ Elapsed : </b>{get_readable_time(time() - download.message.date.timestamp())}"
+                msg += f"\n<b>├ Engine : </b>{download.eng()}"
                 if hasattr(download, 'seeders_num'):
                     try:
-                        msg += f"\n├ <b>Seeders : </b>{download.seeders_num()} | <b>Leechers:</b> {download.leechers_num()}"
+                        msg += f"\n<b>├ Seeders : </b>{download.seeders_num()} | <b>Leechers:</b> {download.leechers_num()}"
                     except:
                         pass
 
@@ -160,16 +160,16 @@ def get_readable_message():
             if download.message.chat.type != 'private':
                 try:
                     chatid = str(download.message.chat.id)[4:]
-                    msg += f'\n├ <b>Source : </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a>'
-                    msg += f'\n├ <b>User Id : </b><code>{download.message.from_user.id}</code>'
-                    msg += f"\n└ <b>Cancel : </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
-                    msg += "\n___________________________\n\n"
+                    msg += f'\n<b>├ Source : </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a>'
+                    msg += f'\n<b>├ User Id : </b><code>{download.message.from_user.id}</code>'
+                    msg += f"\n<b>└ Cancel : </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+                    msg += "\n<b>______________________________</b>\n\n"
                 except:
                     pass
             else:
-                msg += f'\n├ <b>User : </b><code>{download.message.from_user.first_name}</code>'
-                msg += f'\n├ <b>User Id : </b><code>{download.message.from_user.id}</code>'
-                msg += f"\n└ <b>Cancel : </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
+                msg += f'\n<b>├ User : </b><code>{download.message.from_user.first_name}</code>'
+                msg += f'\n<b>├ User Id : </b><code>{download.message.from_user.id}</code>'
+                msg += f"\n<b>└ Cancel : </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
                 msg += "\n\n"
             if STATUS_LIMIT is not None and index == STATUS_LIMIT:
                 break
@@ -197,10 +197,10 @@ def get_readable_message():
                 elif 'M' in spd:
                     up_speed += float(spd.split('M')[0]) * 1048576
                     
-        bmsg = f"\n┌ <b>Tasks Running : </b>{len(download_dict)}"
-        bmsg += f"\n├ <b>CPU : </b>{cpu_percent()}% | <b>FREE:</b> {get_readable_file_size(disk_usage(DOWNLOAD_DIR).free)}"
-        bmsg += f"\n├ <b>RAM : </b>{virtual_memory().percent}% | <b>UPTIME:</b> {get_readable_time(time() - botStartTime)}"
-        bmsg += f"\n└ <b>DL : </b>{get_readable_file_size(dl_speed)}/s | <b>UL:</b> {get_readable_file_size(up_speed)}/s"
+        bmsg = f"\n<b>┌ Tasks Running : </b>{len(download_dict)}"
+        bmsg += f"\n<b>├ CPU : </b>{cpu_percent()}% | <b>FREE:</b> {get_readable_file_size(disk_usage(DOWNLOAD_DIR).free)}"
+        bmsg += f"\n<b>├ RAM : </b>{virtual_memory().percent}% | <b>UPTIME:</b> {get_readable_time(time() - botStartTime)}"
+        bmsg += f"\n<b>└ DL : </b>{get_readable_file_size(dl_speed)}/s | <b>UL:</b> {get_readable_file_size(up_speed)}/s"
         buttons = ButtonMaker()
         buttons.sbutton("Refresh", "status refresh")
         buttons.sbutton("Statistics", str(FOUR))
