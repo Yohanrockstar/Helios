@@ -160,7 +160,7 @@ def get_readable_message():
             if download.message.chat.type != 'private':
                 try:
                     chatid = str(download.message.chat.id)[4:]
-                    msg += f'\n<b>├ Source : </b><a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a>'
+                    msg += f'\n<b>├ Source : <a href="https://t.me/c/{chatid}/{download.message.message_id}">{download.message.from_user.first_name}</a></b>'
                     msg += f'\n<b>├ User Id : </b><code>{download.message.from_user.id}</code>'
                     msg += f"\n<b>└ Cancel : </b><code>/{BotCommands.CancelMirror} {download.gid()}</code>"
                     msg += "\n<b>______________________________</b>\n\n"
