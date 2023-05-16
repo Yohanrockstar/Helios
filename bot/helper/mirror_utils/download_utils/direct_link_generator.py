@@ -492,22 +492,24 @@ def gdtot(url):
     final_url = f'{raw.scheme}://{raw.hostname}{path}'
     return unified(final_url)
   
-def filepress(link: str) -> str:
-    cget = cloudscraper.create_scraper().request
+def filepress(url):
+    cget = create_scraper().request
     try:
-        raw = urlparse(link)
+        url = cget('GET', url).url
+        raw = urlparse(url)
         json_data = {
             'id': raw.path.split('/')[-1],
             'method': 'publicDownlaod',
-            }
-        api = f'{raw.scheme}://filepress.click/api/file/downlaod/'
-        res = cget('POST', api, headers={'Referer': f'{raw.scheme}://filepress.click'}, json=json_data).json()
-        if 'data' not in res:
-            raise DirectDownloadLinkException(f'ERROR: {res["statusText"]}')
-        return f'https://drive.google.com/open?id={res["data"]}'
+        }
+        api = f'{raw.scheme}://{raw.hostname}/api/file/downlaod/'
+        res = cget('POST', api, headers={
+                   'Referer': f'{raw.scheme}://{raw.hostname}'}, json=json_data).json()
     except Exception as e:
         raise DirectDownloadLinkException(f'ERROR: {e.__class__.__name__}')
-        
+    if 'data' not in res:
+        raise DirectDownloadLinkException(f'ERROR: {res["statusText"]}')
+    return f'https://drive.google.com/uc?id={res["data"]}&export=download'
+
 def unified(link) -> str:
     try:
         cget = cloudscraper.create_scraper().request
